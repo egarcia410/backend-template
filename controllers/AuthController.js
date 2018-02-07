@@ -1,12 +1,15 @@
 const knex = require('../db/knex');
 
 module.exports = {
-    register: (ctx, next) => {
-        console.log('AuthContoller.register() called!')
+    signUp: (ctx, next) => {
+        // Email & Password
+        console.log(ctx.request.value.body);
+        console.log('AuthContoller.signUp() called!')
     },
 
-    login: (ctx, next) => {
-        console.log('AuthContoller.login() called!')
+    signIn: (ctx, next) => {
+        // Generate token
+        console.log('AuthContoller.signIn() called!')
     },
 
 }
