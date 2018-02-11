@@ -8,6 +8,9 @@ const DashboardRoute = require('./routes/dashboard.js');
 const app = new Koa();
 const PORT = process.env.PORT || 8080;
 
+// loads environmental variables
+require('dotenv').config()
+
 // Middlewares
 app.use(morgan('dev')); // Logger
 app.use(bodyParser()); // Parses ['json', 'form'] by default

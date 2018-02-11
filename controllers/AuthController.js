@@ -1,4 +1,14 @@
+const JWT = require('jsonwebtoken');
+
 const knex = require('../db/knex');
+
+signToken = user => {
+    return JWT.sign({
+        sub: user.id, // subject
+        iat: new Date().getTime(), // issuedAt
+        exp: new Date().setDate(new Date().getDate() + 1) // expiresIn 1 day
+    }, process.env.JWT_SECRET);
+}
 
 module.exports = {
     signUp: async (ctx, next) => {
@@ -9,7 +19,7 @@ module.exports = {
             const foundUser = await knex('user')
                 .where({ 'email': email })
                 .first()
-                .then(user => {
+                .then(user => {                
                     return user;
                 })
                 .catch(error => {
@@ -22,7 +32,7 @@ module.exports = {
     
             // Create a new user
             // Knex will return an array with an object of the new user info
-            const user = await knex('user')
+            const newUser = await knex('user')
                 .returning([ 'id', 'email', 'password' ])
                 .insert({ 'email': email, 'password': password })
                 .then(user => {
@@ -31,9 +41,13 @@ module.exports = {
                 .catch(error => {
                     console.log(error);
                 });
-                
+            
+            // Generate the token
+            const token = signToken(newUser);
+
             // Respond with a token
-            ctx.body = user;
+            ctx.status = 200;
+            ctx.body = { token };
 
         } catch (error) {
             ctx.body = error.message;
