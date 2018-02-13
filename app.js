@@ -2,8 +2,8 @@ const Koa = require('koa');
 const morgan = require('koa-morgan');
 const bodyParser = require('koa-bodyparser');
 
-const AuthRoute = require('./routes/auth.js');
-const DashboardRoute = require('./routes/dashboard.js');
+const AuthRoute = require('./routes/auth');
+const DashboardRoute = require('./routes/dashboard');
 
 const app = new Koa();
 const PORT = process.env.PORT || 8080;
