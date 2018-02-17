@@ -11,10 +11,14 @@ const router = new Router();
 router.post('/auth/signup', 
             validateBody(schemas.authSchema), 
             AuthController.signUp);
-            
+
 router.post('/auth/signin', 
             validateBody(schemas.authSchema), 
             passport.authenticate('local', { session: false }), 
             AuthController.signIn);
+
+router.post('/auth/google',
+            passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }),
+        )
 
 module.exports = router;
