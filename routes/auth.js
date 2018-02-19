@@ -19,6 +19,6 @@ router.post('/auth/signin',
 
 router.post('/auth/google',
             passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }),
-        )
+            AuthController.signIn)
 
 module.exports = router;

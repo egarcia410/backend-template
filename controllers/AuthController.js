@@ -59,4 +59,13 @@ module.exports = {
         ctx.status = 200;
         ctx.body = { token };
     },
+
+    googleOAuth: async (ctx, next) => {
+        // Generate a token
+        console.log('user', ctx.state.user);
+        const token = signToken(ctx.state.user);
+        // Respond with a token
+        ctx.status = 200;
+        ctx.body = { token };
+    },
 };

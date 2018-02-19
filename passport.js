@@ -69,9 +69,6 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:8080/auth/google/callback"
 }, async (accessToken, refreshToken, profile, done) => {
         try {
-            console.log(accessToken, 'accessToken');
-            console.log(refreshToken, 'refreshToken');
-            console.log(profile, 'profile');
             // Verify if user exists in DB based from profile.id
             await knex('user')
                 .where({ 'googleId': profile.id })
